@@ -1,0 +1,59 @@
+text{
+    font-size: 12px;
+    font-family: monospace;
+}
+.variable{
+    font-weight: bold;
+    cursor: url("mycursor.png"), w-resize;
+}
+.variable:hover{
+    text-decoration: underline;
+}
+.background{
+    fill: none;
+    stroke: #007fff;
+    stroke-width: 1;
+    stroke-dasharray: 5, 5;
+}
+.domainPoints{
+  stroke-width: 3;
+stroke: #000000;
+fill: #FF0000;
+}
+.point1{
+    fill: #28A86B;
+}
+.point2{
+    fill: #6495ED;
+}
+.control_point{
+  fill: #ff7f00;
+    fill-opacity: 0.2;
+    stroke-opacity: 0.2;
+    stroke: #000000;
+    stroke-width: 2;
+    cursor: pointer;
+}
+.control_point:hover{
+    stroke-opacity: 0.6;
+    fill-opacity: 0.6;
+}
+.variablePoint{
+  stroke-width: 3;
+stroke: #000000;
+fill: #007fff;
+}
+.examplePathClass{
+  fill: none;
+stroke: #000000;
+stroke-width: 3;
+stroke-dasharray: none;
+stroke-linecap: round;
+}
+.domainPathClass{
+  fill: none;
+stroke: #000000;
+stroke-width: 3;
+stroke-dasharray: 5,3;
+stroke-linecap: round;
+}

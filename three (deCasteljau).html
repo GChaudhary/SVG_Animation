@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<!-- saved from url=(0043)file:///home/gtmchoudhary/Desktop/test.html -->
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<!-- CSS Script -->
+	<link rel="stylesheet" href="three.css">
+	<!-- JavaScript -->
+	<script src="three.js"></script>
+</head>
+<body>
+
+<svg width="820" height="730" style="border: 1px solid black; background: #E0FFFF;"
+	xmlns="http://www.w3.org/2000/svg"
+	xmlns:svg="http://www.w3.org/2000/svg"
+	version="1.1"
+	onload="init(evt)"
+	onmousemove="drag(evt)"
+	onmouseup="deselect()"
+	onmousedown="showCoords(event)">
+
+
+	<!-- DOMAIN [100 x 800] -->
+	<g id="domainGroup" transform="translate(10 10)">
+				<!-- Rectangle boundary -->
+			 	<rect class= "background" id="InnerRectDomain" height="100" width="800" y="0" x="0"></rect>
+
+			 	<!-- TextBox -->
+			 	<text x="100" y="50" style="fill: red">Domain Parameter</text>
+
+			 	<!-- Group of domain svg elements [100 x 400]-->
+			 	<g transform="translate(410, 0)">
+					 		<!-- TextBox -->
+					 		<text x="50" y="80" style="fill: red">0</text>
+					 		<text x="200" y="80" style="fill: red">1</text>
+
+					 		<!-- Path on which Variable point moves -->
+						  <path class="domainPathClass" id="domainPath" d="M58,40 L202,40"></path>
+
+					 		<!-- End domain points -->
+							<g id="left_domain_point" transform="translate(50,40)">
+								<circle r="15" fill="red"/>
+								<!-- <rect class="domainPoints" id="r1" height="40" width="10" y="" x=""></rect> -->
+						 	</g>
+
+							<g id="right_domain_point" transform="translate(200,40)">
+								<circle r="15" fill="red"/>
+								<!-- <rect class="domainPoints" id="r2" height="40" width="10" y="" x=""></rect> -->
+						 	</g>
+
+					    <!-- Variable Point -->
+							<g id="variable_domain_point" transform="translate(0,0)">
+								<circle r="8" fill="green"/>
+								<!-- <rect class="variablePoint" transform="rotate(45) " height="14" width="14" y="-7" x="-7"> -->
+						 	</g>
+				</g>
+	</g>
+
+	<!-- EXAMPLE GROUP [600 x 800] -->
+	<g id="exampleGroup" transform="translate(10 120)">
+				<!-- Rectangle boundary -->
+			 	<rect class="background" id="InnerRectExample" height="600" width="800" y="0" x="0"></rect>
+
+			 	<!-- TextBox -->
+			 	<text x="100" y="50" style="fill: black;">Example Curve</text>
+
+			 	<!-- Group of domain svg elements [100 x 400]-->
+			 	<g transform="translate(0, 0)">
+							<circle r="5" id="abc"/>
+					 		<!-- Control points -->
+					 		<g id="control_point00" transform="translate(0,0)">
+						 		<circle class="control_point" id="c1" r="12" cy="0" cx="0" onmousedown="selectElement(evt, 1)"></circle>
+						 	</g>
+						 	<g id="control_point01" transform="translate(0,0)">
+							    <circle class="control_point" id="c2" r="12" cy="0" cx="0" onmousedown="selectElement(evt, 2)"></circle>
+							</g>
+							<g id="control_point02" transform="translate(0,0)">
+							    <circle class="control_point" id="c3" r="12" cy="0" cx="0" onmousedown="selectElement(evt, 3)"></circle>
+							</g>
+				      <g id="control_point03" transform="translate(0,0)">
+				          <circle class="control_point" id="c4" r="12" cy="0" cx="0" onmousedown="selectElement(evt, 4)"></circle>
+				      </g>
+
+					    <!-- Variable Points -->
+					 		<g id="variable_point10" transform="translate(0,0)">
+						 		<circle class="control_point" id="c1" r="12" cy="0" cx="0"></circle>
+						 	</g>
+						 	<g id="variable_point11" transform="translate(0,0)">
+							    <circle class="control_point" id="c2" r="12" cy="0" cx="0"></circle>
+							</g>
+							<g id="variable_point12" transform="translate(0,0)">
+							    <circle class="control_point" id="c3" r="12" cy="0" cx="0"></circle>
+							</g>
+
+				      <g id="variable_point20" transform="translate(0,0)">
+				          <circle class="control_point" id="c4" r="12" cy="0" cx="0"></circle>
+				      </g>
+							<g id="variable_point21" transform="translate(0,0)">
+				          <circle class="control_point" id="c4" r="12" cy="0" cx="0"></circle>
+				      </g>
+
+							<g id="variable_point30" transform="translate(0,0)">
+				          <circle class="control_point" id="c4" r="12" cy="0" cx="0"></circle>
+				      </g>
+
+				      <!-- Variable Lines -->
+				      <line id="variableLine_00_01" x1="" y1="" x2="" y2="" stroke="red" stroke-width="2" />
+				      <line id="variableLine_01_02" x1="" y1="" x2="" y2="" stroke="green" stroke-width="2" />
+							<line id="variableLine_02_03" x1="" y1="" x2="" y2="" stroke="blue" stroke-width="2" />
+
+							<line id="variableLine_10_11" x1="" y1="" x2="" y2="" stroke="black" stroke-width="4" />
+							<line id="variableLine_11_12" x1="" y1="" x2="" y2="" stroke="black" stroke-width="4" />
+
+							<line id="variableLine_20_21" x1="" y1="" x2="" y2="" stroke="blue" stroke-width="6" />
+
+
+				</g>
+	</g>
+
+</svg>
+
+
+ </body></html>

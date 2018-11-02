@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<!-- saved from url=(0043)file:///home/gtmchoudhary/Desktop/test.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+</head>
+<body>
+
+<!-- <h1>Line Interpolation Visualisation</h1> -->
+
+
+<svg width="820" height="730" style="border: 1px solid black; background: #E0FFFF;" 
+	xmlns="http://www.w3.org/2000/svg" 
+	xmlns:svg="http://www.w3.org/2000/svg"
+	version="1.1" 
+	onload="init(evt)" 
+	onmousemove="drag(evt)" 
+	onmouseup="deselect()"
+	onmousedown="showCoords(event)">
+
+	<!-- CSS Script -->
+	<style>
+        text{
+            font-size: 12px;
+            font-family: monospace;
+        }
+        .variable{
+            font-weight: bold;
+            cursor: url("mycursor.png"), w-resize;
+        }
+        .variable:hover{
+            text-decoration: underline;
+        }
+        .background{
+            fill: none;
+            stroke: #007fff;
+            stroke-width: 1;
+            stroke-dasharray: 5, 5;
+        }
+        .domainPoints{
+        	stroke-width: 3; 
+			stroke: #000000; 
+			fill: #FF0000;
+        }
+        .point1{
+            fill: #28A86B;
+        }
+        .point2{
+            fill: #6495ED;
+        }
+        .control_point{
+        	fill: #ff7f00;
+            fill-opacity: 0.2;
+            stroke-opacity: 0.2;
+            stroke: #000000;
+            stroke-width: 2;
+            cursor: pointer;
+        }
+        .control_point:hover{
+            stroke-opacity: 0.6;
+            fill-opacity: 0.6;
+        }
+        .variablePoint{
+        	stroke-width: 3; 
+			stroke: #000000; 
+			fill: #007fff;
+        }
+        .examplePathClass{
+        	fill: none;
+			stroke: #000000; 
+			stroke-width: 3;
+			stroke-dasharray: none; 
+			stroke-linecap: round;
+        }
+        .domainPathClass{
+        	fill: none;
+			stroke: #000000; 
+			stroke-width: 3;
+			stroke-dasharray: 5,3; 
+			stroke-linecap: round;
+        } 
+	 					
+    </style>
+    
+    <!-- JavaScript -->
+    <script type="text/ecmascript"><![CDATA[
+        var svgDoc;
+        var selectedPoint = 0;
+        var offsetX = 20;
+        var offsetY = 130;
+        
+        var example_shape;
+        var example_shape1;
+        var example_shape2;
+        var control_point;
+        var control_points;
+
+        var oldValue = 0;
+        
+    
+    	function showCoords(event) {
+		    var x = event.clientX;
+		    var y = event.clientY;
+		    var coords = "showCoords > X coords: " + x + ", Y coords: " + y;
+		    console.log(coords);
+		}
+
+		function getPosition(element) {
+			var position = element.getBoundingClientRect();
+			return [position.left, position.top];
+		}
+
+        function init(evt) {
+            if ( window.svgDocument == null ) {
+                svgDoc = evt.target.ownerDocument;
+            }  
+            
+            example_shape  =  svgDoc.getElementById('examplePath0');
+            example_shape1  =  svgDoc.getElementById('examplePath1');
+            example_shape2  =  svgDoc.getElementById('examplePath2');
+
+            control_points = [svgDoc.getElementById('control_point0'),
+                              svgDoc.getElementById('control_point1'),
+                              svgDoc.getElementById('control_point2') ];
+        };
+        
+        function selectElement(evt, point){
+        	oldValue = example_shape.getAttribute("d").split(" ");
+        	oldValue1 = example_shape1.getAttribute("d").split(" ");
+        	oldValue2 = example_shape2.getAttribute("d").split(" ");
+        	
+        	//console.log("x=" + evt.clientX + " y=" + evt.clientY);
+
+            selectedPoint = point;
+            control_point = evt.target.parentNode;
+            var coords = control_point.getAttributeNS(null, "transform");
+            coords = coords.slice(10, coords.length-1).split(",");
+
+            offsetX = parseInt(coords[0]) - evt.clientX ;
+            offsetY = parseInt(coords[1]) - evt.clientY;
+
+            //console.log("off_x=" + offsetX + " off_y=" + offsetY);
+        };
+        
+        function drag(evt){
+            if (selectedPoint != 0){
+                var x = evt.clientX + offsetX;
+                var y = evt.clientY + offsetY;
+
+                //console.log("#x=" + x + " #y=" + y);
+
+                if (selectedPoint == 1){
+                	example_shape.setAttributeNS(null, "d", oldValue[0].slice(0,1) + x + "," + y + " " + oldValue[1] + " " + oldValue[2]);
+                	example_shape1.setAttributeNS(null, "d", oldValue1[0].slice(0,1) + x + "," + y + " " + oldValue1[1]);
+            	}
+            	else if (selectedPoint == 2){
+                	example_shape.setAttributeNS(null, "d", oldValue[0] + " " + oldValue[1].slice(0,1) + x + "," + y + " " + oldValue[2]);
+                	example_shape1.setAttributeNS(null, "d", oldValue1[0] + " " + oldValue1[1].slice(0,1) + x + "," + y);
+                	example_shape2.setAttributeNS(null, "d", oldValue2[0].slice(0,1) + x + "," + y + " " + oldValue2[1]);
+            	}
+            	else if (selectedPoint == 3){
+                	example_shape.setAttributeNS(null, "d", oldValue[0] + " " + oldValue[1] + " " + x + "," + y);
+                	example_shape2.setAttributeNS(null, "d", oldValue2[0] + " " + oldValue2[1].slice(0,1) + x + "," + y);
+            	} 
+                
+                //console.log(selectedPoint);
+
+                control_point.setAttributeNS(null, "transform", "translate(" + x + "," + y + ")");
+                
+            }
+        };
+        
+        function deselect(){
+            selectedPoint = 0;
+        };
+    ]]> </script>
+
+
+
+	<!-- DOMAIN [100 x 800] -->
+	<g id="domainGroup" transform="translate(10 10)">
+
+		<!-- Rectangle boundary -->
+	 	<rect class= "background" id="InnerRectDomain" height="100" width="800" y="0" x="0"></rect>
+
+	 	<!-- TextBox -->
+	 	<text x="100" y="50" style="fill: red">Domain Parameter</text>
+
+	 	<!-- Group of domain svg elements [100 x 400]-->
+	 	<g transform="translate(410, 0)">
+	 		<!-- TextBox -->
+	 		<text x="50" y="80" style="fill: red">0</text>
+	 		<text x="200" y="80" style="fill: red">1</text>
+
+	 		<!-- Path on which Variable point moves -->
+		    <path class="domainPathClass" id="domainPath" d="M58,40 L202,40"></path>
+
+	 		<!-- End domain points -->
+	 		<rect class="domainPoints" id="r1" height="40" width="10" y="20" x="50"></rect>
+		    <rect class="domainPoints" id="r2" height="40" width="10" y="20" x="200"></rect>
+		    
+		    <!-- Variable Point -->
+		    <rect class="variablePoint" id="variableDomainPoint" transform="rotate(45) " height="14" width="14" y="-7" x="-7">
+		    	<!-- Define the motion path animation -->
+			    <animatemotion dur="3s" repeatCount="indefinite">
+			      <mpath xlink:href="#domainPath"></mpath>
+			    </animatemotion>
+		    </rect>
+		    
+		     
+		</g>
+	</g>
+
+	<!-- EXAMPLE GROUP [600 x 800] -->
+	<g id="exampleGroup" transform="translate(10 120)">
+		<!-- Rectangle boundary -->
+	 	<rect class="background" id="InnerRectExample" height="600" width="800" y="0" x="0"></rect>
+
+	 	<!-- TextBox -->
+	 	<text x="100" y="50" style="fill: black;">Example Curve</text>
+
+	 	<!-- Group of domain svg elements [100 x 400]-->
+	 	<g transform="translate(0, 0)">
+	 		<!-- Paths on which Variable point moves -->
+		    <path class="examplePathClass" id="examplePath1" d="M100,300 L300,100"></path>
+		    <path class="examplePathClass" id="examplePath2" d="M300,100 L500,200"></path>
+		    <path class="examplePathClass" id="examplePath0" d="M100,300 Q300,100 500,200"></path>
+
+	 		<!-- Control points -->
+	 		<g id="control_point0" transform="translate(100,300)">
+		 		<circle class="control_point" id="c1" r="12" cy="0" cx="0" onmousedown="selectElement(evt, 1)"></circle>
+		 	</g>
+
+		 	<g id="control_point1" transform="translate(300,100)">
+			    <circle class="control_point" id="c2" r="12" cy="0" cx="0" onmousedown="selectElement(evt, 2)"></circle>
+			</g>
+
+			<g id="control_point2" transform="translate(500,200)">
+			    <circle class="control_point" id="c3" r="12" cy="0" cx="0" onmousedown="selectElement(evt, 3)"></circle>
+			</g>
+		    
+		    <!-- Variable Points -->
+		    <circle class="variablePoint" id="variableExamplePoint0" cx="0" cy="0" r="3">
+		    	<!-- Define the motion path animation -->
+			    <animatemotion dur="3s" repeatCount="indefinite">
+			      <mpath xlink:href="#examplePath0"></mpath>
+			    </animatemotion>
+		    </circle>
+
+		    <circle class="variablePoint" id="variableExamplePoint1" cx="0" cy="0" r="3">
+		    	<!-- Define the motion path animation -->
+			    <animatemotion dur="3s" repeatCount="indefinite">
+			      <mpath xlink:href="#examplePath1"></mpath>
+			    </animatemotion>
+		    </circle>
+
+		    <circle class="variablePoint" id="variableExamplePoint2" cx="0" cy="0" r="3">
+		    	<!-- Define the motion path animation -->
+			    <animatemotion dur="3s" repeatCount="indefinite">
+			      <mpath xlink:href="#examplePath2"></mpath>
+			    </animatemotion>
+		    </circle>
+		    
+		     
+		</g>
+	</g>
+
+</svg>
+
+
+ </body></html>
